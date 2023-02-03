@@ -4,10 +4,14 @@ public interface TagQuery {
 
     boolean MatchesTag(Tag tag);
 
-    boolean MatchesTag(TagContainer container);
-
     boolean MatchesTagExact(Tag tag);
 
-    boolean MatchesTagExact(TagContainer container);
+    boolean MatchesAny(Tag tag);
+
+    boolean MatchesAnyExact(Tag tag);
+
+    boolean MatchesAll(Tag tag);
+
+    boolean MatchesAllExactMatchesAll(Tag tag);
 
 }

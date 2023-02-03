@@ -7,7 +7,7 @@ public class Tag implements TagQuery {
 
     private static final Map<String, String[]> arrayByTag = new ConcurrentHashMap<>();
 
-    String[] array;
+    final String[] array;
 
     public Tag(String tag) {
         if (!arrayByTag.containsKey(tag)) {
@@ -19,22 +19,6 @@ public class Tag implements TagQuery {
 
     @Override
     public boolean MatchesTag(Tag tag) {
-        int length = this.array.length;
-        if (length > tag.array.length) {
-            return false;
-        }
-
-        for (int i = 0; i < length; i++) {
-            if (!this.array[i].equals(tag.array[i])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean MatchesTag(TagContainer container) {
         return false;
     }
 
@@ -44,7 +28,22 @@ public class Tag implements TagQuery {
     }
 
     @Override
-    public boolean MatchesTagExact(TagContainer container) {
+    public boolean MatchesAny(Tag tag) {
+        return false;
+    }
+
+    @Override
+    public boolean MatchesAnyExact(Tag tag) {
+        return false;
+    }
+
+    @Override
+    public boolean MatchesAll(Tag tag) {
+        return false;
+    }
+
+    @Override
+    public boolean MatchesAllExactMatchesAll(Tag tag) {
         return false;
     }
 

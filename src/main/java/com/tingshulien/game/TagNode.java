@@ -1,7 +1,7 @@
 package com.tingshulien.game;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 class TagNode {
@@ -10,22 +10,16 @@ class TagNode {
 
     int overlap;
 
-    final List<TagNode> children;
+    final Map<String, TagNode> children;
 
     public TagNode(String value) {
         this.value = value;
         this.overlap = 1;
-        this.children = new ArrayList<>();
+        this.children = new HashMap<>();
     }
 
     public boolean hasChildren(String value) {
-        for (TagNode child : children) {
-            if (value.equals(child.value)) {
-                return true;
-            }
-        }
-
-        return false;
+        return children.containsKey(value);
     }
 
     @Override
