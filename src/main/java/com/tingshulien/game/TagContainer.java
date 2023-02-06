@@ -193,4 +193,8 @@ public class TagContainer implements TagContainerQuery {
         }
     }
 
+    public boolean isValid() {
+        return !isEmpty();
+    }
+
 }
