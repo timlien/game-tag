@@ -11,11 +11,11 @@ class TagContainerTest {
     void GivenFlatOtherTag_WhenInvokeHasTag_ThenReturnTrue() {
         TagContainer container = new TagContainer();
         Tag tag = new Tag("A.1");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("A");
 
-        boolean result = container.hasTag(target);
+        boolean result = container.has(target);
 
         assertThat(result, is(true));
     }
@@ -24,11 +24,11 @@ class TagContainerTest {
     void GivenDeepOtherTag_WhenInvokeHasTag_ThenReturnFalse() {
         TagContainer container = new TagContainer();
         Tag tag = new Tag("A");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("A.1");
 
-        boolean result = container.hasTag(target);
+        boolean result = container.has(target);
 
         assertThat(result, is(false));
     }
@@ -37,11 +37,11 @@ class TagContainerTest {
     void GivenSameOtherTag_WhenInvokeHasTag_ThenReturnTrue() {
         TagContainer container = new TagContainer();
         Tag tag = new Tag("A.1");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("A.1");
 
-        boolean result = container.hasTag(target);
+        boolean result = container.has(target);
 
         assertThat(result, is(true));
     }
@@ -50,11 +50,11 @@ class TagContainerTest {
     void GivenDifferentOtherTag_WhenInvokeHasTag_ThenReturnFalse() {
         TagContainer container = new TagContainer();
         Tag tag = new Tag("A");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("C");
 
-        boolean result = container.hasTag(target);
+        boolean result = container.has(target);
 
         assertThat(result, is(false));
     }
@@ -63,11 +63,11 @@ class TagContainerTest {
     void GivenEmptyOtherTag_WhenInvokeHasTag_ThenReturnFalse() {
         TagContainer container = new TagContainer();
         Tag tag = new Tag("A.1");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("");
 
-        boolean result = container.hasTagExact(target);
+        boolean result = container.hasExact(target);
 
         assertThat(result, is(false));
     }
@@ -76,11 +76,11 @@ class TagContainerTest {
     void GivenFlatOtherTag_WhenInvokeHasTagExact_ThenReturnFalse() {
         TagContainer container = new TagContainer();
         Tag tag = new Tag("A.1");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("A");
 
-        boolean result = container.hasTagExact(target);
+        boolean result = container.hasExact(target);
 
         assertThat(result, is(false));
     }
@@ -89,11 +89,11 @@ class TagContainerTest {
     void GivenDeepOtherTag_WhenInvokeHasTagExact_ThenReturnFalse() {
         TagContainer container = new TagContainer();
         Tag tag = new Tag("A");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("A.1");
 
-        boolean result = container.hasTagExact(target);
+        boolean result = container.hasExact(target);
 
         assertThat(result, is(false));
     }
@@ -103,11 +103,11 @@ class TagContainerTest {
         TagContainer container = new TagContainer();
 
         Tag tag = new Tag("A.1");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("A.1");
 
-        boolean result = container.hasTagExact(target);
+        boolean result = container.hasExact(target);
 
         assertThat(result, is(true));
     }
@@ -117,11 +117,11 @@ class TagContainerTest {
         TagContainer container = new TagContainer();
 
         Tag tag = new Tag("A");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("C");
 
-        boolean result = container.hasTagExact(target);
+        boolean result = container.hasExact(target);
 
         assertThat(result, is(false));
     }
@@ -131,11 +131,11 @@ class TagContainerTest {
         TagContainer container = new TagContainer();
 
         Tag tag = new Tag("A.1");
-        container.addTag(tag);
+        container.add(tag);
 
         Tag target = new Tag("");
 
-        boolean result = container.hasTagExact(target);
+        boolean result = container.hasExact(target);
 
         assertThat(result, is(false));
     }
@@ -143,12 +143,12 @@ class TagContainerTest {
     @Test
     void GivenFlatOtherContainer_WhenInvokeHasAll_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A"));
-        other.addTag(new Tag("B"));
+        other.add(new Tag("A"));
+        other.add(new Tag("B"));
 
         boolean result = parent.hasAll(other);
 
@@ -158,12 +158,12 @@ class TagContainerTest {
     @Test
     void GivenDeepOtherContainer_WhenInvokeHasAll_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A"));
-        parent.addTag(new Tag("B"));
+        parent.add(new Tag("A"));
+        parent.add(new Tag("B"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAll(other);
 
@@ -173,13 +173,13 @@ class TagContainerTest {
     @Test
     void GivenLessOtherContainer_WhenInvokeHasAll_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
-        parent.addTag(new Tag("C.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
+        parent.add(new Tag("C.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAll(other);
 
@@ -189,13 +189,13 @@ class TagContainerTest {
     @Test
     void GivenMoreOtherContainer_WhenInvokeHasAll_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A"));
-        other.addTag(new Tag("B.1"));
-        other.addTag(new Tag("C.1"));
+        other.add(new Tag("A"));
+        other.add(new Tag("B.1"));
+        other.add(new Tag("C.1"));
 
         boolean result = parent.hasAll(other);
 
@@ -205,12 +205,12 @@ class TagContainerTest {
     @Test
     void GivenSameOtherContainer_WhenInvokeHasAll_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAll(other);
 
@@ -220,11 +220,11 @@ class TagContainerTest {
     @Test
     void GivenDifferentOtherContainer_WhenInvokeHasAll_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A"));
-        parent.addTag(new Tag("B"));
+        parent.add(new Tag("A"));
+        parent.add(new Tag("B"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("C"));
+        other.add(new Tag("C"));
 
         boolean result = parent.hasAll(other);
 
@@ -234,12 +234,12 @@ class TagContainerTest {
     @Test
     void GivenFlatOtherContainer_WhenInvokeHasAllExact_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A"));
-        other.addTag(new Tag("B"));
+        other.add(new Tag("A"));
+        other.add(new Tag("B"));
 
         boolean result = parent.hasAllExact(other);
 
@@ -249,12 +249,12 @@ class TagContainerTest {
     @Test
     void GivenDeepOtherContainer_WhenInvokeHasAllExact_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A"));
-        parent.addTag(new Tag("B"));
+        parent.add(new Tag("A"));
+        parent.add(new Tag("B"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAllExact(other);
 
@@ -264,13 +264,13 @@ class TagContainerTest {
     @Test
     void GivenLessOtherContainer_WhenInvokeHasAllExact_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
-        parent.addTag(new Tag("C.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
+        parent.add(new Tag("C.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAllExact(other);
 
@@ -280,13 +280,13 @@ class TagContainerTest {
     @Test
     void GivenMoreOtherContainer_WhenInvokeHasAllExact_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
-        other.addTag(new Tag("C.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
+        other.add(new Tag("C.1"));
 
         boolean result = parent.hasAllExact(other);
 
@@ -296,12 +296,12 @@ class TagContainerTest {
     @Test
     void GivenSameOtherContainer_WhenInvokeHasAllExact_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAll(other);
 
@@ -311,11 +311,11 @@ class TagContainerTest {
     @Test
     void GivenDifferentOtherContainer_WhenInvokeHasAllExact_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("C"));
+        other.add(new Tag("C"));
 
         boolean result = parent.hasAllExact(other);
 
@@ -325,8 +325,8 @@ class TagContainerTest {
     @Test
     void GivenEmptyOtherContainer_WhenInvokeHasAllExact_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
-        parent.addTag(new Tag("B.1"));
+        parent.add(new Tag("A.1"));
+        parent.add(new Tag("B.1"));
 
         TagContainer other = new TagContainer();
 
@@ -340,8 +340,8 @@ class TagContainerTest {
         TagContainer parent = new TagContainer();
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAllExact(other);
 
@@ -351,11 +351,11 @@ class TagContainerTest {
     @Test
     void GivenFlatOtherContainer_WhenInvokeHaAny_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
+        parent.add(new Tag("A.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A"));
-        other.addTag(new Tag("B"));
+        other.add(new Tag("A"));
+        other.add(new Tag("B"));
 
         boolean result = parent.hasAny(other);
 
@@ -365,11 +365,11 @@ class TagContainerTest {
     @Test
     void GivenDeepOtherContainer_WhenInvokeHaAny_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A"));
+        parent.add(new Tag("A"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAny(other);
 
@@ -379,10 +379,10 @@ class TagContainerTest {
     @Test
     void GivenSameOtherContainer_WhenInvokeHasAny_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
+        parent.add(new Tag("A.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
+        other.add(new Tag("A.1"));
 
         boolean result = parent.hasAny(other);
 
@@ -392,10 +392,10 @@ class TagContainerTest {
     @Test
     void GivenDifferentOtherContainer_WhenInvokeHaAny_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A"));
+        parent.add(new Tag("A"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("B"));
+        other.add(new Tag("B"));
 
         boolean result = parent.hasAny(other);
 
@@ -405,13 +405,13 @@ class TagContainerTest {
     @Test
     void GivenEmptyOtherContainer_WhenInvokeHaAny_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
+        parent.add(new Tag("A.1"));
 
         TagContainer other = new TagContainer();
 
         boolean result = parent.hasAny(other);
 
-        assertThat(result, is(true));
+        assertThat(result, is(false));
     }
 
     @Test
@@ -419,7 +419,7 @@ class TagContainerTest {
         TagContainer parent = new TagContainer();
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
+        other.add(new Tag("A.1"));
 
         boolean result = parent.hasAny(other);
 
@@ -429,11 +429,11 @@ class TagContainerTest {
     @Test
     void GivenFlatOtherContainer_WhenInvokeHaAnyExact_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
+        parent.add(new Tag("A.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A"));
-        other.addTag(new Tag("B"));
+        other.add(new Tag("A"));
+        other.add(new Tag("B"));
 
         boolean result = parent.hasAnyExact(other);
 
@@ -443,11 +443,11 @@ class TagContainerTest {
     @Test
     void GivenDeepOtherContainer_WhenInvokeHaAnyExact_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A"));
+        parent.add(new Tag("A"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
-        other.addTag(new Tag("B.1"));
+        other.add(new Tag("A.1"));
+        other.add(new Tag("B.1"));
 
         boolean result = parent.hasAnyExact(other);
 
@@ -457,10 +457,10 @@ class TagContainerTest {
     @Test
     void GivenSameOtherContainer_WhenInvokeHasAnyExact_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
+        parent.add(new Tag("A.1"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
+        other.add(new Tag("A.1"));
 
         boolean result = parent.hasAnyExact(other);
 
@@ -470,10 +470,10 @@ class TagContainerTest {
     @Test
     void GivenDifferentOtherContainer_WhenInvokeHaAnyExact_ThenReturnFalse() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A"));
+        parent.add(new Tag("A"));
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("B"));
+        other.add(new Tag("B"));
 
         boolean result = parent.hasAnyExact(other);
 
@@ -483,13 +483,13 @@ class TagContainerTest {
     @Test
     void GivenEmptyOtherContainer_WhenInvokeHaAnyExact_ThenReturnTrue() {
         TagContainer parent = new TagContainer();
-        parent.addTag(new Tag("A.1"));
+        parent.add(new Tag("A.1"));
 
         TagContainer other = new TagContainer();
 
         boolean result = parent.hasAnyExact(other);
 
-        assertThat(result, is(true));
+        assertThat(result, is(false));
     }
 
     @Test
@@ -497,7 +497,7 @@ class TagContainerTest {
         TagContainer parent = new TagContainer();
 
         TagContainer other = new TagContainer();
-        other.addTag(new Tag("A.1"));
+        other.add(new Tag("A.1"));
 
         boolean result = parent.hasAnyExact(other);
 

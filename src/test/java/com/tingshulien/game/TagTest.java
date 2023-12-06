@@ -114,8 +114,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag flatOneTag = new Tag("A");
         Tag flatTwoTag = new Tag("B");
-        other.addTag(flatOneTag);
-        other.addTag(flatTwoTag);
+        other.add(flatOneTag);
+        other.add(flatTwoTag);
 
         boolean result = tag.matchesAny(other);
 
@@ -129,8 +129,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag deepOneTag = new Tag("A.1");
         Tag deepTwoTag = new Tag("B.1");
-        other.addTag(deepOneTag);
-        other.addTag(deepTwoTag);
+        other.add(deepOneTag);
+        other.add(deepTwoTag);
 
         boolean result = tag.matchesAny(other);
 
@@ -144,8 +144,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag sameOneTag = new Tag("A.1");
         Tag sameTwoTag = new Tag("B.1");
-        other.addTag(sameOneTag);
-        other.addTag(sameTwoTag);
+        other.add(sameOneTag);
+        other.add(sameTwoTag);
 
         boolean result = tag.matchesAny(other);
 
@@ -159,8 +159,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag differentOneTag = new Tag("B");
         Tag differentTwoTag = new Tag("C");
-        other.addTag(differentOneTag);
-        other.addTag(differentTwoTag);
+        other.add(differentOneTag);
+        other.add(differentTwoTag);
 
         boolean result = tag.matchesAny(other);
 
@@ -174,8 +174,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag otherOneTag = new Tag("A");
         Tag otherTwoTag = new Tag("B");
-        other.addTag(otherOneTag);
-        other.addTag(otherTwoTag);
+        other.add(otherOneTag);
+        other.add(otherTwoTag);
 
         boolean result = tag.matchesAny(other);
 
@@ -200,8 +200,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag flatOneTag = new Tag("A");
         Tag flatTwoTag = new Tag("B");
-        other.addTag(flatOneTag);
-        other.addTag(flatTwoTag);
+        other.add(flatOneTag);
+        other.add(flatTwoTag);
 
         boolean result = tag.matchesAnyExact(other);
 
@@ -215,8 +215,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag deepOneTag = new Tag("A.1");
         Tag deepTwoTag = new Tag("B.1");
-        other.addTag(deepOneTag);
-        other.addTag(deepTwoTag);
+        other.add(deepOneTag);
+        other.add(deepTwoTag);
 
         boolean result = tag.matchesAnyExact(other);
 
@@ -230,8 +230,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag sameOneTag = new Tag("A.1");
         Tag sameTwoTag = new Tag("B.1");
-        other.addTag(sameOneTag);
-        other.addTag(sameTwoTag);
+        other.add(sameOneTag);
+        other.add(sameTwoTag);
 
         boolean result = tag.matchesAnyExact(other);
 
@@ -245,8 +245,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag differentOneTag = new Tag("B");
         Tag differentTwoTag = new Tag("C");
-        other.addTag(differentOneTag);
-        other.addTag(differentTwoTag);
+        other.add(differentOneTag);
+        other.add(differentTwoTag);
 
         boolean result = tag.matchesAnyExact(other);
 
@@ -260,8 +260,8 @@ class TagTest {
         TagContainer other = new TagContainer();
         Tag otherOneTag = new Tag("A");
         Tag otherTwoTag = new Tag("B");
-        other.addTag(otherOneTag);
-        other.addTag(otherTwoTag);
+        other.add(otherOneTag);
+        other.add(otherTwoTag);
 
         boolean result = tag.matchesAnyExact(other);
 

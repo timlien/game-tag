@@ -6,13 +6,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Tag implements TagQuery {
 
+    private static final Map<String, Tag> tagByName = new ConcurrentHashMap<>();
+
     private static final Map<String, String[]> arrayByTag = new ConcurrentHashMap<>();
 
     final String name;
 
     final String[] array;
 
-    public Tag(String name) {
+    Tag(String name) {
         this.name = name;
         if (!arrayByTag.containsKey(name)) {
             arrayByTag.put(name, name.split("\\."));
@@ -27,7 +29,7 @@ public class Tag implements TagQuery {
 
     @Override
     public boolean matchesTag(Tag other) {
-        if (!isValid()) {
+        if (isEmpty()) {
             return false;
         }
 
@@ -46,7 +48,7 @@ public class Tag implements TagQuery {
 
     @Override
     public boolean matchesTagExact(Tag other) {
-        if (!isValid()) {
+        if (isEmpty()) {
             return false;
         }
 
@@ -55,7 +57,7 @@ public class Tag implements TagQuery {
 
     @Override
     public boolean matchesAny(TagContainer container) {
-        if (!isValid()) {
+        if (isEmpty()) {
             return false;
         }
 
@@ -75,13 +77,13 @@ public class Tag implements TagQuery {
 
     @Override
     public boolean matchesAnyExact(TagContainer container) {
-        if (!isValid()) {
+        if (isEmpty()) {
             return false;
         }
 
         Map<String, TagNode> current = container.root;
-        for (int i = 0; i < array.length; i++) {
-            TagNode node = current.get(array[i]);
+        for (String nodeName : array) {
+            TagNode node = current.get(nodeName);
 
             if (node == null) {
                 return false;
@@ -93,8 +95,16 @@ public class Tag implements TagQuery {
         return current.isEmpty();
     }
 
-    public boolean isValid() {
-        return array.length != 0;
+    public boolean isEmpty() {
+        return array.length == 0;
+    }
+
+    public static Tag getInstance(String name) {
+        if (!tagByName.containsKey(name)) {
+            tagByName.put(name, new Tag(name));
+        }
+
+        return tagByName.get(name);
     }
 
 }

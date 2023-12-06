@@ -2,9 +2,9 @@ package com.tingshulien.game;
 
 public interface TagContainerQuery {
 
-    boolean hasTag(Tag tag);
+    boolean has(Tag tag);
 
-    boolean hasTagExact(Tag tag);
+    boolean hasExact(Tag tag);
 
     /**
      * Checks if this container contains all the tags in the specified container, also checks against parent tags

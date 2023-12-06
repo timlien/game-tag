@@ -1,17 +1,23 @@
 package com.tingshulien.game;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
-public class TagContainer implements TagContainerQuery {
+public class TagContainer implements TagContainerQuery, Iterable<Tag> {
 
     final Map<String, TagNode> root;
 
+    final Set<Tag> cache;
+
     public TagContainer() {
         root = new HashMap<>();
+        cache = new HashSet<>();
     }
 
-    public void addTag(Tag tag) {
+    public void add(Tag tag) {
         Map<String, TagNode> current = root;
         for (String value : tag.array) {
             TagNode node = find(value, current);
@@ -20,6 +26,7 @@ public class TagContainer implements TagContainerQuery {
                 final TagNode newNode = new TagNode(value);
                 current.put(value, newNode);
                 current = newNode.children;
+                cache.add(tag);
             } else {
                 node.overlap += 1;
                 current = node.children;
@@ -27,7 +34,13 @@ public class TagContainer implements TagContainerQuery {
         }
     }
 
-    public void removeTag(Tag tag) {
+    public void add(TagContainer container) {
+        for (Tag tag : container) {
+            add(tag);
+        }
+    }
+
+    public void remove(Tag tag) {
         Map<String, TagNode> current = root;
         for (String value : tag.array) {
             TagNode node = find(value, current);
@@ -38,6 +51,7 @@ public class TagContainer implements TagContainerQuery {
                 node.overlap -= 1;
                 if (node.overlap == 0) {
                     current.remove(value);
+                    cache.remove(tag);
                 } else {
                     current = node.children;
                 }
@@ -45,16 +59,22 @@ public class TagContainer implements TagContainerQuery {
         }
     }
 
+    public void remove(TagContainer container) {
+        for (Tag tag : container) {
+            remove(tag);
+        }
+    }
+
+    public void removeAll() {
+        root.clear();
+    }
+
     private TagNode find(String value, Map<String, TagNode> current) {
         return current.get(value);
     }
 
-    public boolean isEmpty() {
-        return root.isEmpty();
-    }
-
     @Override
-    public boolean hasTag(Tag tag) {
+    public boolean has(Tag tag) {
         Map<String, TagNode> current = root;
         for (String value : tag.array) {
             TagNode node = find(value, current);
@@ -70,7 +90,7 @@ public class TagContainer implements TagContainerQuery {
     }
 
     @Override
-    public boolean hasTagExact(Tag tag) {
+    public boolean hasExact(Tag tag) {
         Map<String, TagNode> current = root;
         for (String value : tag.array) {
             TagNode node = find(value, current);
@@ -130,7 +150,7 @@ public class TagContainer implements TagContainerQuery {
             }
         }
 
-        if (!parent.isEmpty() && other.isEmpty()){
+        if (!parent.isEmpty() && other.isEmpty()) {
             return false;
         } else if (parent.isEmpty() && !other.isEmpty()) {
             return false;
@@ -141,6 +161,10 @@ public class TagContainer implements TagContainerQuery {
 
     @Override
     public boolean hasAny(TagContainer other) {
+        if (other.isEmpty()) {
+            return false;
+        }
+
         return matchAny(this.root, other.root);
     }
 
@@ -152,7 +176,7 @@ public class TagContainer implements TagContainerQuery {
         for (TagNode otherNode : other.values()) {
             final TagNode parentNode = parent.get(otherNode.value);
             if (parentNode == null) {
-                return false;
+                continue;
             }
 
             if (matchAny(parentNode.children, otherNode.children)) {
@@ -166,7 +190,7 @@ public class TagContainer implements TagContainerQuery {
     @Override
     public boolean hasAnyExact(TagContainer other) {
         if (other.isEmpty()) {
-            return true;
+            return false;
         }
 
         return matchAnyExact(this.root, other.root);
@@ -184,7 +208,7 @@ public class TagContainer implements TagContainerQuery {
             }
         }
 
-        if (!parent.isEmpty() && other.isEmpty()){
+        if (!parent.isEmpty() && other.isEmpty()) {
             return false;
         } else if (parent.isEmpty() && !other.isEmpty()) {
             return false;
@@ -193,8 +217,17 @@ public class TagContainer implements TagContainerQuery {
         }
     }
 
-    public boolean isValid() {
-        return !isEmpty();
+    public boolean isEmpty() {
+        return root.isEmpty();
+    }
+
+    public void clear() {
+        this.root.clear();
+    }
+
+    @Override
+    public Iterator<Tag> iterator() {
+        return cache.iterator();
     }
 
 }
